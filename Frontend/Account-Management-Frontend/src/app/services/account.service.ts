@@ -54,6 +54,6 @@ export class AccountService {
 
   // 💸 Transfer money between accounts
   transfer(data: any): Observable<any> {
-    return this.http.post('http://localhost:5000/api/transaction/transfer', data, this.getHeaders());
+    return this.http.post(`${environment.apiUrl}/transaction/transfer`, data, this.getHeaders());
   }
 }

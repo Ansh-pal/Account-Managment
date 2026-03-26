@@ -16,19 +16,21 @@ namespace AccountManager.API.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register(RegisterDto dto)
+        public IActionResult Register([FromBody] RegisterDto dto)
         {
             var result = _authService.Register(dto);
-            return Ok(result);
+            return Ok(new { message = result });
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginDto dto)
+        public IActionResult Login([FromBody] LoginDto dto)
         {
             var token = _authService.Login(dto);
 
-            if (token == null)
-                return Unauthorized("Invalid credentials");
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                return Unauthorized(new { error = "Invalid username or password" });
+            }
 
             return Ok(new { token });
         }

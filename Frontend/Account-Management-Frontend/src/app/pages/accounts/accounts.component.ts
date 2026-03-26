@@ -16,7 +16,7 @@ export class AccountsComponent implements OnInit {
 
   newAccount = {
     accountName: '',
-    balance: 0
+    initialBalance: 0
   };
 
   constructor(private accountService: AccountService) {}
@@ -42,7 +42,7 @@ export class AccountsComponent implements OnInit {
     this.accountService.createAccount(this.newAccount).subscribe({
       next: () => {
         this.loadAccounts();
-        this.newAccount = { accountName: '', balance: 0 };
+        this.newAccount = { accountName: '', initialBalance: 0 };
       },
       error: (err) => {
         console.error(err);

@@ -37,7 +37,7 @@ namespace AccountManager.API.Services
             return "User registered successfully";
         }
 
-        public string Login(LoginDto dto)
+        public string? Login(LoginDto dto)
         {
             var user = _context.Users.FirstOrDefault(x => x.Email == dto.Email);
 
