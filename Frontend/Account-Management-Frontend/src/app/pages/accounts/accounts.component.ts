@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from 'src/app/services/account.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-accounts',
-  templateUrl: './accounts.component.html'
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './accounts.html',
+  styleUrl: './accounts.css'
 })
 export class AccountsComponent implements OnInit {
 

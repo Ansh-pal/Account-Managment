@@ -1,23 +1,66 @@
-<h2>Accounts</h2>
+<div class="accounts-container">
+  <div class="accounts-header">
+    <h1>My Accounts</h1>
+    <p>Manage and create your bank accounts</p>
+  </div>
 
-<!-- ➕ Create Account -->
-<form (ngSubmit)="createAccount()">
-  <input type="text" [(ngModel)]="newAccount.accountName" name="accountName" placeholder="Account Name" required />
-  <br /><br />
+  <!-- ➕ Create Account Form -->
+  <div class="form-section">
+    <h2>Create New Account</h2>
+    <form (ngSubmit)="createAccount()" class="account-form">
+      <div class="form-group">
+        <label for="accountName">Account Name</label>
+        <input
+          id="accountName"
+          type="text"
+          [(ngModel)]="newAccount.accountName"
+          [ngModelOptions]="{ updateOn: 'change' }"
+          name="accountName"
+          placeholder="e.g., Savings Account"
+          required
+        />
+      </div>
 
-  <input type="number" [(ngModel)]="newAccount.balance" name="balance" placeholder="Balance" required />
-  <br /><br />
+      <div class="form-group">
+        <label for="balance">Initial Balance (₹)</label>
+        <input
+          id="balance"
+          type="number"
+          [(ngModel)]="newAccount.balance"
+          name="balance"
+          placeholder="0.00"
+          required
+        />
+      </div>
 
-  <button type="submit">Add Account</button>
-</form>
+      <button type="submit" class="btn-primary">➕ Add Account</button>
+    </form>
+  </div>
 
-<hr />
+  <!-- 📥 Accounts List -->
+  <div class="accounts-section">
+    <h2>Your Accounts</h2>
 
-<!-- 📥 Show Accounts -->
-<ul>
-  <li *ngFor="let account of accounts">
-    {{ account.accountName }} - ₹{{ account.balance }}
+    <div class="accounts-grid" *ngIf="accounts.length > 0; else noAccounts">
+      <div class="account-card" *ngFor="let account of accounts">
+        <div class="account-header">
+          <h3>{{ account.accountName }}</h3>
+          <span class="account-id">#{{ account.id }}</span>
+        </div>
+        <div class="account-balance">
+          <p class="balance-label">Balance</p>
+          <p class="balance-amount">₹{{ account.balance }}</p>
+        </div>
+        <button type="button" class="btn-danger" (click)="deleteAccount(account.id)">
+          🗑️ Delete
+        </button>
+      </div>
+    </div>
 
-    <button (click)="deleteAccount(account.id)">Delete</button>
-  </li>
-</ul>
+    <ng-template #noAccounts>
+      <div class="empty-state">
+        <p>No accounts yet. Create one to get started!</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

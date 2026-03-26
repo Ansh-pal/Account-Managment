@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private baseUrl = 'http://localhost:5000/api/auth'; // change if needed
+  private baseUrl = environment.authApiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -23,21 +24,33 @@ export class AuthService {
 
   // 💾 Save Token
   saveToken(token: string) {
-    localStorage.setItem('token', token);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('token', token);
+    }
   }
 
   // 📦 Get Token
   getToken(): string | null {
+    if (typeof localStorage === 'undefined') {
+      return null;
+    }
+
     return localStorage.getItem('token');
   }
 
   // 🚪 Logout
   logout() {
-    localStorage.removeItem('token');
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem('token');
+    }
   }
 
   // ✅ Check Login
   isLoggedIn(): boolean {
+    if (typeof localStorage === 'undefined') {
+      return false;
+    }
+
     return !!localStorage.getItem('token');
   }
 }

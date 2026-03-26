@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
 
-  private baseUrl = 'http://localhost:5000/api/account'; // change if needed
+  private baseUrl = `${environment.apiUrl}/account`;
 
   constructor(
     private http: HttpClient,
@@ -49,5 +50,10 @@ export class AccountService {
   // 🔍 Get single account
   getAccountById(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`, this.getHeaders());
+  }
+
+  // 💸 Transfer money between accounts
+  transfer(data: any): Observable<any> {
+    return this.http.post('http://localhost:5000/api/transaction/transfer', data, this.getHeaders());
   }
 }
