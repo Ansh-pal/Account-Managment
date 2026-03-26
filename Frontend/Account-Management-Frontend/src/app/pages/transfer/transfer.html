@@ -1,0 +1,31 @@
+<h2>Transfer Money</h2>
+
+<form (ngSubmit)="transferMoney()">
+
+  <!-- From Account -->
+  <label>From Account:</label><br />
+  <select [(ngModel)]="transferData.fromAccountId" name="fromAccountId" required>
+    <option *ngFor="let acc of accounts" [value]="acc.id">
+      {{ acc.accountName }}
+    </option>
+  </select>
+
+  <br /><br />
+
+  <!-- To Account -->
+  <label>To Account:</label><br />
+  <select [(ngModel)]="transferData.toAccountId" name="toAccountId" required>
+    <option *ngFor="let acc of accounts" [value]="acc.id">
+      {{ acc.accountName }}
+    </option>
+  </select>
+
+  <br /><br />
+
+  <!-- Amount -->
+  <input type="number" [(ngModel)]="transferData.amount" name="amount" placeholder="Amount" required />
+
+  <br /><br />
+
+  <button type="submit">Transfer</button>
+</form>

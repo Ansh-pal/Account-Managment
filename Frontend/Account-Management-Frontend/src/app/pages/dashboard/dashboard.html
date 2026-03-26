@@ -1,0 +1,10 @@
+<h2>Dashboard</h2>
+
+<h3>Transaction History</h3>
+
+<ul>
+  <li *ngFor="let tx of transactions">
+    ₹{{ tx.amount }} | {{ tx.type }}  
+    (From: {{ tx.fromAccountId }} → To: {{ tx.toAccountId }})
+  </li>
+</ul>

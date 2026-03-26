@@ -1,0 +1,23 @@
+<h2>Accounts</h2>
+
+<!-- ➕ Create Account -->
+<form (ngSubmit)="createAccount()">
+  <input type="text" [(ngModel)]="newAccount.accountName" name="accountName" placeholder="Account Name" required />
+  <br /><br />
+
+  <input type="number" [(ngModel)]="newAccount.balance" name="balance" placeholder="Balance" required />
+  <br /><br />
+
+  <button type="submit">Add Account</button>
+</form>
+
+<hr />
+
+<!-- 📥 Show Accounts -->
+<ul>
+  <li *ngFor="let account of accounts">
+    {{ account.accountName }} - ₹{{ account.balance }}
+
+    <button (click)="deleteAccount(account.id)">Delete</button>
+  </li>
+</ul>
