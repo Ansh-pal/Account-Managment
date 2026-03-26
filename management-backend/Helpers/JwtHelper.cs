@@ -12,6 +12,11 @@ namespace AccountManager.API.Helpers
 
         public JwtHelper(string key)
         {
+            if (string.IsNullOrWhiteSpace(key) || Encoding.UTF8.GetByteCount(key) < 32)
+            {
+                throw new ArgumentException("JWT key must be at least 32 bytes (256 bits) for HS256.", nameof(key));
+            }
+
             _key = key;
         }
 
@@ -28,7 +33,7 @@ namespace AccountManager.API.Helpers
 
             var token = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.Now.AddHours(2),
+                expires: DateTime.UtcNow.AddHours(2),
                 signingCredentials: creds
             );
 

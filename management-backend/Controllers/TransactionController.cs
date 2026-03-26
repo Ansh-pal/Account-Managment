@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AccountManager.API.DTOs;
 using AccountManager.API.Services;
-using AccountManager.API.DTOs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AccountManager.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class TransactionController : ControllerBase
     {
         private readonly TransactionService _transactionService;
@@ -19,7 +21,6 @@ namespace AccountManager.API.Controllers
         public IActionResult Transfer(TransferDto dto)
         {
             var result = _transactionService.Transfer(dto);
-
             return Ok(result);
         }
 
@@ -27,7 +28,6 @@ namespace AccountManager.API.Controllers
         public IActionResult GetTransactions()
         {
             var transactions = _transactionService.GetTransactions();
-
             return Ok(transactions);
         }
 
@@ -35,7 +35,6 @@ namespace AccountManager.API.Controllers
         public IActionResult GetAccountTransactions(int accountId)
         {
             var transactions = _transactionService.GetAccountTransactions(accountId);
-
             return Ok(transactions);
         }
     }
